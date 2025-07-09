@@ -2,6 +2,17 @@
 
 A nature-inspired evolutionary system for discovering and executing MEV arbitrage strategies, based on Sakana AI's evolutionary approaches.
 
+## 🚀 Quick Start: Generate Profits TODAY
+
+**Want to start making money immediately?** Check out our [**Profit Now Guide**](README_PROFIT_NOW.md) to begin executing profitable trades within 30 minutes!
+
+```bash
+# Start making money in one command:
+python quick_start_profit.py
+```
+
+No complex setup. No huge capital requirements. Just find opportunities, execute, and profit.
+
 ## Overview
 
 This system uses evolutionary algorithms to discover profitable MEV arbitrage strategies without manual strategy design. The population of agents evolves through crossover and mutation, with natural selection based on actual profit performance.
