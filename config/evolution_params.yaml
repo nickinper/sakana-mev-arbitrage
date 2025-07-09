@@ -1,0 +1,58 @@
+# Evolution parameters for Sakana-inspired MEV arbitrage system
+
+population:
+  size: 20                    # Small, focused population
+  max_size: 100              # Maximum population for diversity phases
+  elite_retention: 0.2       # Keep top 20% unchanged each generation
+  species_threshold: 0.3     # Genetic distance threshold for speciation
+
+evolution:
+  mutation_rate: 0.05        # Conservative 5% mutation rate
+  crossover_rate: 0.8        # High 80% crossover rate
+  generation_limit: 1000     # Maximum generations to evolve
+  
+  # Mutation parameters
+  conservative_mutation_prob: 0.7    # 70% chance of small changes
+  multi_gene_mutation_prob: 0.1      # 10% chance to mutate multiple genes
+  creep_rate: 0.1                    # Gaussian noise factor for creep mutation
+  reset_mutation_prob: 0.05          # 5% chance of random reset
+  
+  # Adaptive rates
+  min_mutation_rate: 0.01
+  max_mutation_rate: 0.3
+  initial_mutation_rate: 0.05
+
+selection:
+  tournament_size: 4         # Tournament selection pool size
+  selection_pressure: 0.7    # Probability of selecting best in tournament
+  
+crossover:
+  blend_alpha: 0.5          # BLX-alpha parameter for blend crossover
+  multi_point_prob: 0.3     # Probability of multi-point crossover
+  segment_crossover_prob: 0.2  # Probability of segment-based crossover
+
+diversity:
+  injection_threshold: 0.3   # Inject diversity if below this threshold
+  injection_count: 3         # Number of random agents to inject
+  stagnation_limit: 50      # Generations without improvement before injection
+  
+  # Species management
+  species_boost: 0.1        # Fitness boost per species member (1/n)
+  min_species_size: 2       # Minimum species size to maintain
+
+convergence:
+  fitness_threshold: 0.95    # Stop if fitness reaches this level
+  improvement_threshold: 0.001  # Minimum improvement to continue
+  patience: 100             # Generations to wait for improvement
+
+# Age-based management
+age_management:
+  penalty_start: 20         # Start penalizing after 20 generations
+  penalty_factor: 0.95      # Multiply fitness by this per generation over limit
+  max_age: 50              # Force retirement at this age
+
+# Performance tracking
+tracking:
+  checkpoint_interval: 10   # Save checkpoint every N generations
+  stats_window: 50         # Window for calculating statistics
+  hall_of_fame_size: 10    # Number of best agents to preserve

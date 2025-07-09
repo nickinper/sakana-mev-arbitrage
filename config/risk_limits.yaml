@@ -1,0 +1,107 @@
+# Risk management configuration
+
+# Position size limits
+position_limits:
+  max_position_size_pct: 0.10      # Maximum 10% of capital per trade
+  min_position_size_usd: 50        # Minimum $50 position
+  max_position_size_usd: 10000     # Maximum $10,000 position
+  
+  # Per-token limits
+  token_limits:
+    WETH: 5.0                      # Max 5 ETH per trade
+    USDC: 10000                    # Max 10,000 USDC
+    USDT: 10000                    # Max 10,000 USDT
+    DAI: 10000                     # Max 10,000 DAI
+    WBTC: 0.25                     # Max 0.25 BTC
+
+# Loss limits
+loss_limits:
+  daily_loss_limit_pct: 0.05       # 5% maximum daily loss
+  weekly_loss_limit_pct: 0.15      # 15% maximum weekly loss
+  max_consecutive_losses: 5        # Stop after 5 consecutive losses
+  
+  # Circuit breakers
+  circuit_breaker_cooldown: 3600   # 1 hour cooldown in seconds
+  circuit_breaker_reset_hour: 0    # Reset at midnight UTC
+  
+  # Drawdown limits
+  max_drawdown_pct: 0.20          # 20% maximum drawdown
+  drawdown_recovery_mode: true     # Reduce risk during drawdown
+
+# Gas limits
+gas_limits:
+  max_gas_price_gwei: 500         # Absolute maximum gas price
+  max_gas_per_tx: 1000000         # Maximum gas units per transaction
+  max_gas_cost_usd: 100           # Maximum $100 gas cost per tx
+  
+  # Dynamic gas limits
+  profit_to_gas_ratio: 1.5        # Minimum profit must be 1.5x gas cost
+  emergency_gas_multiplier: 3.0    # Allow 3x normal gas in emergencies
+
+# Execution limits
+execution_limits:
+  max_pending_txs: 3              # Maximum pending transactions
+  max_daily_txs: 100              # Maximum transactions per day
+  min_block_delay: 1              # Minimum blocks between txs
+  
+  # Timing limits
+  max_execution_time_ms: 5000     # 5 second timeout
+  max_simulation_time_ms: 2000    # 2 second simulation timeout
+
+# Slippage and price impact
+slippage_limits:
+  max_slippage_pct: 0.05          # 5% maximum slippage
+  max_price_impact_pct: 0.02      # 2% maximum price impact
+  
+  # Per-pair limits
+  pair_specific:
+    "WETH/USDC": 0.03             # 3% for major pairs
+    "WETH/USDT": 0.03
+    "USDC/USDT": 0.01             # 1% for stablecoin pairs
+
+# Capital allocation
+capital_allocation:
+  initial_capital_usd: 500         # Starting capital
+  reserve_ratio: 0.20             # Keep 20% in reserve
+  
+  # Progressive sizing
+  scaling_enabled: true           # Scale position size with profits
+  scaling_factor: 0.1             # Increase size by 10% per $1000 profit
+  max_scale_multiplier: 5.0       # Maximum 5x initial size
+
+# Competition and MEV protection
+competition_limits:
+  max_gas_outbid_factor: 1.5      # Maximum 1.5x competitor gas
+  min_profit_after_competition: 20  # Minimum $20 profit after gas war
+  
+  # Backrun protection
+  backrun_delay_blocks: 2         # Wait 2 blocks to avoid backrun
+  private_mempool_threshold: 100   # Use private mempool for >$100 profit
+
+# Monitoring and alerts
+monitoring:
+  alert_thresholds:
+    single_loss_usd: 100          # Alert on >$100 single loss
+    daily_loss_usd: 500           # Alert on >$500 daily loss
+    low_success_rate: 0.10        # Alert if success rate <10%
+    high_gas_usage: 0.50          # Alert if gas >50% of profit
+  
+  # Performance thresholds
+  minimum_daily_profit: 50        # Alert if daily profit <$50
+  minimum_success_rate: 0.15      # Alert if success rate <15%
+
+# Risk scoring weights
+risk_scoring:
+  profit_weight: 0.4              # 40% weight on profit potential
+  certainty_weight: 0.3           # 30% weight on execution certainty
+  gas_weight: 0.2                 # 20% weight on gas efficiency
+  competition_weight: 0.1         # 10% weight on competition level
+
+# Emergency procedures
+emergency:
+  shutdown_on_hack: true          # Auto-shutdown on suspected hack
+  shutdown_loss_threshold: 0.5    # Shutdown at 50% capital loss
+  
+  # Recovery procedures
+  recovery_wait_time: 86400       # 24 hours before restart
+  recovery_capital_pct: 0.1       # Restart with only 10% capital

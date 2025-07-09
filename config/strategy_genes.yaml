@@ -1,0 +1,106 @@
+# Strategy gene definitions for arbitrage agents
+
+# Token pair configurations
+dex_pairs:
+  - WETH/USDC
+  - WETH/USDT
+  - USDC/USDT
+  - WETH/DAI
+  - USDC/DAI
+  - USDT/DAI
+  - WETH/WBTC
+
+# Minimum profit thresholds (USD)
+min_profit_threshold:
+  - 10      # Very aggressive, take small profits
+  - 20      # Aggressive
+  - 50      # Moderate
+  - 100     # Conservative
+  - 200     # Very conservative
+  - 500     # Only large opportunities
+
+# Maximum gas price willing to pay (Gwei)
+max_gas_price_gwei:
+  - 30      # Only very cheap gas
+  - 50      # Cheap gas
+  - 100     # Moderate gas
+  - 150     # Willing to pay more
+  - 200     # Aggressive gas bidding
+  - 300     # Very aggressive
+  - 500     # Maximum aggression
+
+# Slippage tolerance
+slippage_tolerance:
+  - 0.001   # 0.1% - Very tight
+  - 0.003   # 0.3% - Tight
+  - 0.005   # 0.5% - Standard
+  - 0.01    # 1% - Relaxed
+  - 0.02    # 2% - Very relaxed
+  - 0.03    # 3% - Maximum tolerance
+
+# Execution delay (blocks to wait)
+execution_delay_blocks:
+  - 0       # Immediate execution
+  - 1       # Wait 1 block (MEV protection)
+  - 2       # Wait 2 blocks
+  - 3       # Conservative delay
+
+# Route complexity (number of hops)
+route_complexity:
+  - 2       # Simple A->B->A
+  - 3       # Three-hop arbitrage
+  - 4       # Complex four-hop
+
+# Flash loan provider preferences
+flashloan_provider:
+  - aave         # Aave flash loans (0.09% fee)
+  - dydx         # dYdX flash loans (0% fee but limited tokens)
+  - uniswap_v3   # Uniswap V3 flash swaps
+  - none         # No flash loan, use own capital
+
+# Gas price multiplier for competitive bidding
+gas_multiplier:
+  - 0.9     # Try to save gas
+  - 1.0     # Standard pricing
+  - 1.1     # Slightly competitive
+  - 1.2     # Competitive
+  - 1.5     # Aggressive
+  - 2.0     # Very aggressive
+
+# Position size as percentage of available capital
+position_size_pct:
+  - 0.05    # 5% - Very conservative
+  - 0.10    # 10% - Conservative
+  - 0.15    # 15% - Moderate
+  - 0.20    # 20% - Aggressive
+  - 0.25    # 25% - Very aggressive
+
+# Confidence threshold for execution
+confidence_threshold:
+  - 0.6     # 60% - Take more risks
+  - 0.7     # 70% - Moderate confidence
+  - 0.8     # 80% - High confidence
+  - 0.9     # 90% - Very high confidence
+  - 0.95    # 95% - Near certainty required
+
+# Additional strategy parameters
+additional_genes:
+  # MEV protection strategies
+  mev_protection:
+    - none           # No protection
+    - flashbots      # Use Flashbots
+    - delay          # Delay execution
+    - private_pool   # Use private mempool
+  
+  # Profit taking strategies
+  profit_strategy:
+    - immediate      # Take any profit
+    - threshold      # Wait for minimum
+    - optimal        # Try to maximize
+  
+  # Competition response
+  competition_response:
+    - ignore         # Don't consider competition
+    - outbid         # Always try to outbid
+    - avoid          # Avoid competitive situations
+    - adaptive       # Adapt based on success rate
