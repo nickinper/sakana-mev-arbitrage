@@ -20,7 +20,6 @@ from rich.align import Align
 from rich.columns import Columns
 from rich import box
 from rich.syntax import Syntax
-from rich.chart import AsciiChart
 
 console = Console()
 

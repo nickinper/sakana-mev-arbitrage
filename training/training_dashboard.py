@@ -608,16 +608,29 @@ class TrainingDashboard:
         """Send agent population update"""
         agent_data = []
         for agent in agents:
-            agent_data.append({
-                'id': agent.get('id'),
-                'fitness': agent.get('fitness', 0),
-                'real_profit': agent.get('real_profit', 0),
-                'success_rate': agent.get('success_rate', 0),
-                'strategy': {
-                    'min_profit': agent.get('genome', {}).get('min_profit_usd', 0),
-                    'gas_mult': agent.get('genome', {}).get('gas_multiplier', 1.5)
-                }
-            })
+            # Handle both old format and new autonomous format
+            if 'performance' in agent:  # Autonomous agent format
+                agent_data.append({
+                    'id': agent.get('id'),
+                    'fitness': agent['performance'].get('total_profit', 0),
+                    'real_profit': agent['performance'].get('total_profit', 0),
+                    'success_rate': agent['performance'].get('success_rate', 0),
+                    'strategy': {
+                        'min_profit': agent['personality'].get('focus_area', 'mixed'),
+                        'gas_mult': agent['personality'].get('risk_tolerance', 0.5)
+                    }
+                })
+            else:  # Original format
+                agent_data.append({
+                    'id': agent.get('id'),
+                    'fitness': agent.get('fitness', 0),
+                    'real_profit': agent.get('real_profit', 0),
+                    'success_rate': agent.get('success_rate', 0),
+                    'strategy': {
+                        'min_profit': agent.get('genome', {}).get('min_profit_usd', 0),
+                        'gas_mult': agent.get('genome', {}).get('gas_multiplier', 1.5)
+                    }
+                })
         await manager.update_training_data('agents', agent_data)
     
     async def add_opportunity(self, opportunity: Dict):

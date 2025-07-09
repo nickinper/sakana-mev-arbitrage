@@ -9,6 +9,7 @@ import sys
 import json
 from datetime import datetime
 import logging
+from typing import Dict, List
 
 # Add profit_generation to path
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'profit_generation'))
